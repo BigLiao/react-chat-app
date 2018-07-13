@@ -1,8 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import Login from './container/login/login';
+import Register from './container/register/register';
+import AuthRouter from './components/authRouter';
+import store from './store';
+
+ReactDOM.render(
+  (
+    <Provider store={store}>
+      <BrowserRouter>
+        <div>
+          <AuthRouter></AuthRouter>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/register" component={Register}></Route>
+        </div>
+      </BrowserRouter>
+    </Provider>
+  ),
+  document.getElementById('root')
+);
