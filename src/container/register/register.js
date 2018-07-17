@@ -1,18 +1,14 @@
 import React from 'react';
 import Logo from '../../components/logo'
 import { List, InputItem, Button, WingBlank, WhiteSpace, Radio } from 'antd-mobile';
+import store from '../../store/index'
 
 const RadioItem = Radio.RadioItem;
 
 class Register extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      username: '',
-      password: '',
-      passwordConfirmation: '',
-      type: 'genius' // or boss
-    };
+    this.state = store.getState();
 
     this.handlerChange = this.handlerChange.bind(this);
     this.register = this.register.bind(this);
@@ -20,9 +16,7 @@ class Register extends React.Component {
   }
 
   handlerChange (key, value) {
-    this.setState({
-      [key]: value
-    });
+    store.dispatch({type: 'ok'})
   }
 
   login () {
