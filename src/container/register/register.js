@@ -1,22 +1,33 @@
 import React from 'react';
 import Logo from '../../components/logo'
 import { List, InputItem, Button, WingBlank, WhiteSpace, Radio } from 'antd-mobile';
-import store from '../../store/index'
+import { connect } from 'react-redux';
+import { register } from '../../store/user.redux.js'
 
 const RadioItem = Radio.RadioItem;
 
+@connect(
+  state => state.user,
+  {register}
+)
 class Register extends React.Component {
   constructor (props) {
     super(props);
-    this.state = store.getState();
-
+    this.state = {
+      user: '',
+      password: '',
+      passwordConfirmation: '',
+      type: 'genius'
+    };
     this.handlerChange = this.handlerChange.bind(this);
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
   }
 
   handlerChange (key, value) {
-    store.dispatch({type: 'ok'})
+    this.setState({
+      [key]: value
+    })
   }
 
   login () {
@@ -24,7 +35,8 @@ class Register extends React.Component {
   }
 
   register () {
-    console.log(this.state);
+    console.log(this.state)
+    this.props.register(this.state);
   }
 
   render () {
@@ -34,7 +46,7 @@ class Register extends React.Component {
         <h1>这是注册页面</h1>
         <WingBlank>
           <List renderHeader={() => '注册信息'}>
-            <InputItem onChange={v => this.handlerChange('username', v)}>用户名</InputItem>
+            <InputItem onChange={v => this.handlerChange('user', v)}>用户名</InputItem>
             <InputItem type="password" onChange={v => this.handlerChange('password', v)}>密码</InputItem>
             <InputItem type="password" onChange={v => this.handlerChange('passwordConfirmation', v)}>确认密码</InputItem>
           </List>
@@ -53,5 +65,10 @@ class Register extends React.Component {
     )
   }
 }
+
+// Register = connect(
+//   state => state.user,
+//   {register}
+// )(Register)
 
 export default Register;
