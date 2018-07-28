@@ -1,5 +1,5 @@
 const express = require('express');
-const router = require('./router/router');
+const router = require('./controllers/index');
 const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -7,11 +7,13 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const config = require('./config').database;
 
-mongoose.connect(config.server, {
-  dbName: config.database,
-  user: config.user,
-  pass: config.password
-});
+const mongoUri = `mongodb://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`;
+mongoose.connect(mongoUri, {
+  auth: {
+    authdb: 'admin'
+  },
+  useNewUrlParser: true
+}).catch(err => console.log('数据库连接失败'));
 
 app.use(cookieParser());
 app.use(bodyParser.json());

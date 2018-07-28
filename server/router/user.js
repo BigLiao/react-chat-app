@@ -1,21 +1,20 @@
 const express = require('express');
 const Router = express.Router();
 
-const User = require('../models/user');
+const user= require('../controllers/userController');
 
-Router.get('/info', function (req, res) {
-  User.find({}, function (err, data) {
-    if (err) {
-      return res.json({
-        code: 404,
-        msg: 'not found'
-      })
-    }
-    return res.json({
+Router.get('/list', function (req, res) {
+  user.list().then(function (data) {
+    res.json({
       code: 200,
       data: data
     })
-  });
+  }).catch(err => {
+    return res.json({
+      code: 404,
+      msg: 'not found'
+    })
+  })
 });
 
 Router.post('/register', function (req, res) {
@@ -32,13 +31,17 @@ Router.post('/register', function (req, res) {
   if (reqParams.password !== reqParams.password_confirmation) {
     return res.json({code: 520, msg: '密码和确认密码不相等'});
   }
-  User.create({
-    user: reqParams.user,
-    password: reqParams.password,
-    type: reqParams.type || null
-  }, function () {
-    res.json({code: 200, msg: '注册成功'})
-  })
+  // User.create({
+  //   user: reqParams.user,
+  //   password: reqParams.password,
+  //   type: reqParams.type || null
+  // }, function () {
+  //   res.json({code: 200, msg: '注册成功'})
+  // })
 });
+
+Router.post('/hhh', function (req, res) {
+  // req.
+})
 
 module.exports = Router;

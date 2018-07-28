@@ -8,7 +8,13 @@
       "type": "node",
       "request": "launch",
       "name": "测试脚本",
-      "program": "${workspaceFolder}\\src\\test.js"
+      "program": "${file}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "当前页测试",
+      // "program": "${workspaceFolder}"
     }
   ]
 }

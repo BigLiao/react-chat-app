@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getRedirctUrl } from '../util';
 
 const REGISTER_SUCCESS = 'register success';
 const ERROR_MSG = 'error msg';
@@ -9,14 +10,15 @@ const initialState = {
   user: '',
   password: '',
   password_confirmation: '',
-  type: ''
+  type: '',
+  redirectTo: ''
 }
 
 // reducer
 export function user (state = initialState, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:
-      return {...state, isAuth: true, error: '', ...action.payload};
+      return {...state, isAuth: true, error: '', redirectTo: getRedirctUrl(action.payload), ...action.payload};
     case ERROR_MSG:
       return {...state, isAuth: false, error: action.msg}
     default:
