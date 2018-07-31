@@ -9,7 +9,8 @@ const userModal = {
   desc: { type: String },
   position: { type: String },
   company: String,
-  money: Number
+  money: Number,
+  id: {type: Number, index: true}
 };
 
 const UserSchema = new Schema(userModal);

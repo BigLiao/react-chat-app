@@ -3,6 +3,8 @@ import { getRedirctUrl } from '../util';
 
 const REGISTER_SUCCESS = 'register success';
 const ERROR_MSG = 'error msg';
+const LOGIN_SUCCESS = 'login success';
+const LOAD_USERINFO_SUCCESS = 'load userinfo success';
 
 const initialState = {
   isAuth: false,
@@ -20,7 +22,9 @@ export function user (state = initialState, action) {
     case REGISTER_SUCCESS:
       return {...state, isAuth: true, error: '', redirectTo: getRedirctUrl(action.payload), ...action.payload};
     case ERROR_MSG:
-      return {...state, isAuth: false, error: action.msg}
+      return {...state, isAuth: false, error: action.msg};
+    case LOGIN_SUCCESS:
+      return {...state, isAuth: true, error: '', redirectTo: getRedirctUrl(action.payload), ...action.payload};
     default:
       return state;
   }
@@ -34,11 +38,25 @@ function errorMsg (msg) {
   };
 }
 
-function registerSuccess (userInfo) {
+function registerSuccess (userinfo) {
   return {
     type: REGISTER_SUCCESS,
-    payload: userInfo
+    payload: userinfo
   };
+}
+
+function loginSuccess (userinfo) {
+  return {
+    type: LOGIN_SUCCESS,
+    payload: userinfo
+  }
+}
+
+function loadUserinfoSuccess (userinfo) {
+  return {
+    type: LOAD_USERINFO_SUCCESS,
+    payload: userinfo
+  }
 }
 
 // 用户操作
@@ -66,5 +84,30 @@ export function register ({user, password, passwordConfirmation, type}) {
         dispatch(errorMsg('服务器错误，请稍后重试'));
       }
     })
+  }
+}
+
+export function login ({user, password}) {
+  // if ()
+  return dispatch => {
+    axios.post('/user/login', {
+      user, password
+    }).then(res => {
+      if (res.status === 200) {
+        if (res.data.code === 200) {
+          dispatch(loginSuccess(res.data.data))
+        } else {
+          dispatch(errorMsg(res.data.msg))
+        }
+      } else {
+        dispatch(errorMsg('服务器错误'))
+      }
+    })
+  }
+}
+
+export function loadUserinfo () {
+  return dispatch => {
+    // axios.get('/user/info', )
   }
 }

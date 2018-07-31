@@ -33,11 +33,10 @@ class Register extends React.Component {
   }
 
   login () {
-
+    this.props.history.push('/login');
   }
 
   register () {
-    console.log(this.state)
     this.props.register(this.state);
   }
 

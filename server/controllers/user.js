@@ -5,7 +5,7 @@ const encodePassword = require('../helps').encodePassword;
 
 Router.get('/clearall', function (req, res) {
   user.deleteMany({}).then(data => {
-    // res.json({code:200})
+    res.json({code:200, msg: '成功删除所有用户'})
   })
 })
 
@@ -37,40 +37,62 @@ Router.post('/register', function (req, res) {
   if (reqParams.password !== reqParams.password_confirmation) {
     return res.json({code: 520, msg: '密码和确认密码不相等'});
   }
+  user.findOne({user: reqParams.user})
+    .then(data => {
+      if (data) {
+        return res.json({code: 520, msg: '用户名已被注册'})
+      }
+  }).catch(err => {
+    console.log(err);
+  })
   user.create({
     user: reqParams.user,
     password: encodePassword(reqParams.password),
     type: reqParams.type || null
-  }, function () {
-    res.json({code: 200, msg: '注册成功'})
+  }, function (err) {
+    if (!err) {
+      return res.json({code: 200, msg: '注册成功'});
+    }
   })
 });
 
-Router.post('/login', async function (req, res) {
+Router.post('/login', function (req, res) {
   if (!req.body.user) {
-    res.json({code: 520, msg: '请输入用户名'});
+    return res.json({code: 520, msg: '请输入用户名'});
   }
   if (!req.body.password) {
-    res.json({code:520, msg: '请输入密码'});
+    return res.json({code:520, msg: '请输入密码'});
   }
   user.findOne({
     user: req.body.user
   }).then(data => {
     if (!data) {
-      res.json({
+      return res.json({
         code: 404, msg: '用户未注册'
       })
     }
     if (encodePassword(req.body.password) !== data.password) {
-      res.json({code: 520, msg: '密码不正确'});
+      return res.json({code: 520, msg: '密码不正确'});
     }
-
+    return res.json({code: 200, msg: 'ok', data: sendUserData(data)})
   }).catch(err => {
-    res.json({
+    console.log(err)
+    return res.json({
       code: 500,
-      msg: '服务器错误'
+      msg: JSON.stringify(err)
     })
   })
+});
+
+Router.get('/info', function (req, res) {
+  return res.json({code: 401, msg: '未登陆'})
 })
+
+function sendUserData (data) {
+  return {
+    user: data.user,
+    type: data.type
+  }
+}
 
 module.exports = Router;
