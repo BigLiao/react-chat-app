@@ -1,7 +1,7 @@
 export function getRedirctUrl ({type, avatar}) {
-  let url = type === 'boss' ? 'boss' : 'genius';
+  let url;
   if (!avatar) {
-    url += 'info';
+    url = 'userinfo';
   }
   return url;
 }

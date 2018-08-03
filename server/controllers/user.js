@@ -1,16 +1,16 @@
 const express = require('express');
 const Router = express.Router();
-const user = require('../models/user');
+const User = require('../models/user');
 const encodePassword = require('../helps').encodePassword;
 
 Router.get('/clearall', function (req, res) {
-  user.deleteMany({}).then(data => {
+  User.deleteMany({}).then(data => {
     res.json({code:200, msg: '成功删除所有用户'})
   })
 })
 
 Router.get('/list', function (req, res) {
-  user.find({}).then(function (data) {
+  User.find({}).then(function (data) {
     res.json({
       code: 200,
       data: data
@@ -37,7 +37,7 @@ Router.post('/register', function (req, res) {
   if (reqParams.password !== reqParams.password_confirmation) {
     return res.json({code: 520, msg: '密码和确认密码不相等'});
   }
-  user.findOne({user: reqParams.user})
+  User.findOne({user: reqParams.user})
     .then(data => {
       if (data) {
         return res.json({code: 520, msg: '用户名已被注册'})
@@ -45,7 +45,7 @@ Router.post('/register', function (req, res) {
   }).catch(err => {
     console.log(err);
   })
-  user.create({
+  User.create({
     user: reqParams.user,
     password: encodePassword(reqParams.password),
     type: reqParams.type || null
@@ -63,7 +63,7 @@ Router.post('/login', function (req, res) {
   if (!req.body.password) {
     return res.json({code:520, msg: '请输入密码'});
   }
-  user.findOne({
+  User.findOne({
     user: req.body.user
   }).then(data => {
     if (!data) {
@@ -74,6 +74,7 @@ Router.post('/login', function (req, res) {
     if (encodePassword(req.body.password) !== data.password) {
       return res.json({code: 520, msg: '密码不正确'});
     }
+    req.session.userinfo = data;
     return res.json({code: 200, msg: 'ok', data: sendUserData(data)})
   }).catch(err => {
     console.log(err)
@@ -85,7 +86,12 @@ Router.post('/login', function (req, res) {
 });
 
 Router.get('/info', function (req, res) {
-  return res.json({code: 401, msg: '未登陆'})
+  if (req.session.userinfo) {
+    console.log(req.session.userinfo);
+    return res.json({code: 200, msg: '已登录'});
+  } else {
+    return res.json({code: 401, msg: '未登陆'});
+  }
 })
 
 function sendUserData (data) {

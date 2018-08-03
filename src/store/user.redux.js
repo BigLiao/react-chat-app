@@ -25,6 +25,8 @@ export function user (state = initialState, action) {
       return {...state, isAuth: false, error: action.msg};
     case LOGIN_SUCCESS:
       return {...state, isAuth: true, error: '', redirectTo: getRedirctUrl(action.payload), ...action.payload};
+    case LOAD_USERINFO_SUCCESS:
+      return {...state, isAuth: true, ...action.payload};
     default:
       return state;
   }
@@ -52,7 +54,7 @@ function loginSuccess (userinfo) {
   }
 }
 
-function loadUserinfoSuccess (userinfo) {
+export function loadUserinfo (userinfo) {
   return {
     type: LOAD_USERINFO_SUCCESS,
     payload: userinfo
@@ -103,11 +105,5 @@ export function login ({user, password}) {
         dispatch(errorMsg('服务器错误'))
       }
     })
-  }
-}
-
-export function loadUserinfo () {
-  return dispatch => {
-    // axios.get('/user/info', )
   }
 }
