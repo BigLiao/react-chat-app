@@ -1,5 +1,58 @@
-const fs = require('fs');
+// const fs = require('fs');
 
-fs.readdir('./', function (err, paths) {
-  console.log(paths);
-})
+// fs.readdir('./male', function (err, paths) {
+//   console.log(paths);
+// });
+
+export const female = ['assistant.png',
+'businessman.png',
+'cashier.png',
+'cooker.png',
+'croupier-1.png',
+'disc-jockey.png',
+'doctor-1.png',
+'firefighter.png',
+'journalist.png',
+'loader.png',
+'maid.png',
+'manager.png',
+'miner.png',
+'motorcyclist.png',
+'nun.png',
+'nurse.png',
+'sheriff.png',
+'showman.png',
+'soldier-1.png',
+'stewardess.png',
+'swat.png',
+'teacher.png',
+'thief.png',
+'waiter.png',
+'worker-1.png']
+
+export const male = ['assistant.png',
+'businessman.png',
+'captain.png',
+'chef.png',
+'concierge.png',
+'courier.png',
+'croupier.png',
+'detective.png',
+'doctor.png',
+'engineer.png',
+'farmer.png',
+'gentleman.png',
+'judge.png',
+'loader.png',
+'miner.png',
+'motorcyclist.png',
+'pilot.png',
+'postman.png',
+'priest.png',
+'scientist.png',
+'sheriff.png',
+'showman.png',
+'taxi-driver.png',
+'thief.png',
+'worker.png',
+'writer.png' ]

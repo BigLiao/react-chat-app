@@ -86,7 +86,7 @@ Router.post('/login', function (req, res) {
 });
 
 Router.get('/info', function (req, res) {
-  if (req.session.userinfo) {
+  if (req.session && req.session.userinfo) {
     console.log(req.session.userinfo);
     return res.json({code: 200, msg: '已登录'});
   } else {

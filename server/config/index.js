@@ -12,4 +12,11 @@ config.database = {
   port: 27017
 }
 
+config.redis = {
+  client: 'session',
+  host: '120.79.130.71',
+  port: '6379',
+  password: 'liao_redis'
+}
+
 module.exports = config;

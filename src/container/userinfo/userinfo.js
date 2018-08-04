@@ -1,13 +1,19 @@
 import React from 'react';
-import {NavBar, List, InputItem, WhiteSpace, WingBlank, DatePicker, TextareaItem} from 'antd-mobile';
+import {NavBar, List, InputItem, WhiteSpace, WingBlank, DatePicker, TextareaItem, Button} from 'antd-mobile';
 import AvatarSelector from '@/components/avatarSelector/avatarSelector';
 
 class Bossinfo extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      date: new Date('1999-01-01')
+      birthday: new Date('1999-01-01'),
+      introduction: ''
     }
+  };
+  onChange (key, value) {
+    this.setState({
+      [key]: value
+    })
   }
   render () {
     return (
@@ -16,15 +22,18 @@ class Bossinfo extends React.Component {
         <WhiteSpace size="lg"></WhiteSpace>
         <WingBlank size="sm">
           <AvatarSelector></AvatarSelector>
-          <p className="title">完善信息</p>
+          <WhiteSpace></WhiteSpace>
+          <p className="title">请完善相关信息</p>
           <List>
             <DatePicker
               mode="date"
               format="YYYY-MM-DD"
               title="出生日期"
               extra="请选择"
-              value={this.state.date}
-              onChange={date => this.setState({ date })}
+              minDate={new Date('1970-01-01')}
+              maxDate={new Date()}
+              value={this.state.birthday}
+              onChange={date => this.onChange('birthday', date)}
             >
               <List.Item arrow="horizontal">生日</List.Item>
             </DatePicker>
@@ -34,8 +43,14 @@ class Bossinfo extends React.Component {
               autoHeight
               rows={5}
               labelNumber={5}
+              value={this.state.introduction}
+              onChange={v => this.onChange('introduction', v)}
             />
           </List>
+          <WhiteSpace size="lg"></WhiteSpace>
+          <Button type="primary">保存</Button>
+          <WhiteSpace size="xl"></WhiteSpace>
+          <WhiteSpace size="lg"></WhiteSpace>
         </WingBlank>
         
       </div>

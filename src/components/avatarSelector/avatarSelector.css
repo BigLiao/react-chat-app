@@ -1,0 +1,45 @@
+.c-avatarSelector {
+  /* position: fixed; */
+  top: 30%;
+  left: 0;
+  width: 100%;
+  /* height: 100%; */
+  bottom: 0;
+  /* overflow-x: hidden; */
+  /* overflow-y: auto; */
+  z-index: 100;
+  /* background-color: #ffffff; */
+}
+
+.c-avatarSelector .avatar-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.c-avatarSelector .avatar-item {
+  flex: 0 1 auto;
+  width: 20%;
+  list-style: none;
+  padding: 10px;
+  box-sizing: border-box;
+  height: auto;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.c-avatarSelector .avatar-item.active {
+  background: #efefef;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 2px #f58782 ;
+
+}
+
+
+.c-avatarSelector .avatar-item .avatar-img {
+  width: 100%;
+  height: auto;
+}

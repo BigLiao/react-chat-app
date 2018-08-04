@@ -6,9 +6,9 @@ const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 
 const mongoose = require('mongoose');
-const config = require('./config').database;
+const config = require('./config');
 
-const mongoUri = `mongodb://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`;
+const mongoUri = `mongodb://${config.database.user}:${config.database.password}@${config.database.host}:${config.database.port}/${config.database.database}`;
 mongoose.connect(mongoUri, {
   auth: {
     authdb: 'admin'
@@ -17,8 +17,9 @@ mongoose.connect(mongoUri, {
 }).catch(err => console.log('数据库连接失败'));
 
 const redisOption = {
-  host: '127.0.0.1',
-  port: 6379,
+  host: config.redis.host,
+  port: config.redis.port,
+  pass: config.redis.password,
   ttl: 60 * 60 *24
 };
 app.use(session({
