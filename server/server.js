@@ -30,6 +30,10 @@ app.use(session({
 }));
 app.use(bodyParser.json());
 app.use(router);
-app.listen(9527, function () {
-  'Server is runing at port 9527...'
+app.listen(9527, function (err) {
+  if (err) {
+    console.log(err)
+    return
+  }
+  console.log('listening on 9527...')
 });

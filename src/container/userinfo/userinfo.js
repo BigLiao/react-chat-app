@@ -1,10 +1,12 @@
 import React from 'react';
 import {NavBar, List, InputItem, WhiteSpace, WingBlank, DatePicker, TextareaItem, Button} from 'antd-mobile';
 import AvatarSelector from '@/components/avatarSelector/avatarSelector';
+import store from '../../store';
 
-class Bossinfo extends React.Component {
+class Userinfo extends React.Component {
   constructor (props) {
     super(props);
+    const state = store.getState();
     this.state = {
       birthday: new Date('1999-01-01'),
       introduction: ''
@@ -58,4 +60,4 @@ class Bossinfo extends React.Component {
   }
 }
 
-export default Bossinfo;
+export default Userinfo;

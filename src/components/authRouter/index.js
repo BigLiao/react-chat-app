@@ -20,7 +20,7 @@ class AuthRouter extends React.Component {
     if (publicPaths.indexOf(this.props.location.pathname) > -1) {
       return null;
     }
-    axios.get('/user/info')
+    axios.get('/user/userinfo')
       .then(res => {
         if (res.data.code === 200) {
           this.props.loadUserinfo(res.data.data);

@@ -12,8 +12,11 @@ const initialState = {
   user: '',
   password: '',
   password_confirmation: '',
-  type: '',
-  redirectTo: ''
+  gender: '',
+  redirectTo: '',
+  introduction: '',
+  avatar: '',
+  birthday: ''
 }
 
 // reducer
@@ -61,8 +64,8 @@ export function loadUserinfo (userinfo) {
   }
 }
 
-// 用户操作
-export function register ({user, password, passwordConfirmation, type}) {
+// 用户操作 dispatch
+export function register ({user, password, passwordConfirmation, gender}) {
   if (!user || !password || !passwordConfirmation) {
     return errorMsg('必须输入用户名和密码');
   }
@@ -74,16 +77,12 @@ export function register ({user, password, passwordConfirmation, type}) {
       user,
       password_confirmation: passwordConfirmation,
       password,
-      type
+      gender
     }).then(res => {
-      if (res.status === 200) {
-        if (res.data.code === 200) {
-          dispatch(registerSuccess({user, password, password_confirmation: passwordConfirmation, type}));
-        } else {
-          dispatch(errorMsg(res.data.msg));
-        }
+      if (res.data.code === 200) {
+        dispatch(registerSuccess({user, password, password_confirmation: passwordConfirmation, gender}));
       } else {
-        dispatch(errorMsg('服务器错误，请稍后重试'));
+        dispatch(errorMsg(res.data.msg));
       }
     })
   }

@@ -4,13 +4,11 @@ const Schema = mongoose.Schema;
 const userModal = {
   user: { type: String, required: true },
   password: { type: String, required: true },
-  type: { type: String, required: true },
+  gender: { type: String, required: true },
   avatar: { type: String },
-  desc: { type: String },
-  position: { type: String },
-  company: String,
-  money: Number,
-  id: {type: Number, index: true}
+  introduction: { type: String },
+  id: {type: Number, index: true},
+  birthday: {type: String}
 };
 
 const UserSchema = new Schema(userModal);

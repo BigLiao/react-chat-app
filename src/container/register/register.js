@@ -19,7 +19,7 @@ class Register extends React.Component {
       user: '',
       password: '',
       passwordConfirmation: '',
-      type: 'male'
+      gender: 'male'
     };
     this.handlerChange = this.handlerChange.bind(this);
     this.register = this.register.bind(this);
@@ -54,8 +54,8 @@ class Register extends React.Component {
           </List>
             <WhiteSpace></WhiteSpace>
           <List renderHeader={() => '我是'}>
-            <RadioItem checked={this.state.type === 'male'} onChange={v => this.handlerChange('type', 'male')}>帅哥</RadioItem>
-            <RadioItem checked={this.state.type === 'female'} onChange={v => this.handlerChange('type', 'female')}>美女</RadioItem>
+            <RadioItem checked={this.state.gender === 'male'} onChange={v => this.handlerChange('gender', 'male')}>帅哥</RadioItem>
+            <RadioItem checked={this.state.gender === 'female'} onChange={v => this.handlerChange('gender', 'female')}>美女</RadioItem>
           </List>
           <WhiteSpace></WhiteSpace>
           <Button type="primary" onClick={this.register}>注册</Button>

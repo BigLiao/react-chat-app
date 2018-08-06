@@ -1,0 +1,7 @@
+{
+  "ok": 200,
+  "badRequest": 400,
+  "unautorized": 401,
+  "forbiden": 403,
+  "notFound": 404
+}

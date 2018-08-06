@@ -10,6 +10,8 @@ import AuthRouter from './components/authRouter';
 import store from './store';
 import Userinfo from './container/userinfo/userinfo';
 
+import './util/http';
+
 ReactDOM.render(
   (
     <Provider store={store}>
