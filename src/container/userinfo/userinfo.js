@@ -1,29 +1,58 @@
 import React from 'react';
-import {NavBar, List, InputItem, WhiteSpace, WingBlank, DatePicker, TextareaItem, Button} from 'antd-mobile';
+import {NavBar, List, WhiteSpace, WingBlank, DatePicker, TextareaItem, Button, Toast} from 'antd-mobile';
 import AvatarSelector from '@/components/avatarSelector/avatarSelector';
 import store from '../../store';
+import axios from 'axios';
+import time from '@/util/time';
 
 class Userinfo extends React.Component {
   constructor (props) {
     super(props);
-    const state = store.getState();
+    const state = store.getState().user;
     this.state = {
-      birthday: new Date('1999-01-01'),
-      introduction: ''
-    }
+      birthday: state.birthday ? new Date(state.birthday) : new Date('1999-01-01'),
+      introduction: state.introduction || '',
+      avatar: state.avatar || '',
+      gender: state.gender
+    };
+    store.subscribe(() => {
+      const state = store.getState().user;
+      this.setState({
+        birthday: state.birthday ? new Date(state.birthday) : new Date('1999-01-01'),
+        introduction: state.introduction || '',
+        avatar: state.avatar || '',
+        gender: state.gender
+      });
+    })
+    this.submit = this.submit.bind(this);
   };
   onChange (key, value) {
     this.setState({
       [key]: value
     })
   }
+  submit () {
+    axios.post('/user/userinfo/update', {
+      avatar: this.state.avatar,
+      birthday: time(this.state.birthday).formatDate(),
+      introduction: this.state.introduction
+    }).then(res => {
+      if (res.data.code === 200) {
+        Toast.success('修改资料成功！');
+      }
+    })
+  };
   render () {
     return (
       <div>
         <NavBar>完善信息页面</NavBar>
         <WhiteSpace size="lg"></WhiteSpace>
         <WingBlank size="sm">
-          <AvatarSelector></AvatarSelector>
+          <AvatarSelector
+            gender={this.state.gender}
+            avatar={this.state.avatar}
+            onChange={avatar => this.onChange('avatar', avatar)}
+          ></AvatarSelector>
           <WhiteSpace></WhiteSpace>
           <p className="title">请完善相关信息</p>
           <List>
@@ -50,7 +79,7 @@ class Userinfo extends React.Component {
             />
           </List>
           <WhiteSpace size="lg"></WhiteSpace>
-          <Button type="primary">保存</Button>
+          <Button type="primary" onClick={this.submit}>保存</Button>
           <WhiteSpace size="xl"></WhiteSpace>
           <WhiteSpace size="lg"></WhiteSpace>
         </WingBlank>

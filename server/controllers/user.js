@@ -126,7 +126,11 @@ Router.post('/userinfo/update', loginAuth, function (req, res) {
 function sendUserData (data) {
   return {
     user: data.user,
-    gender: data.gender
+    gender: data.gender,
+    avatar: data.avatar,
+    introduction: data.introduction,
+    birthday: data.birthday,
+    id: data._id
   }
 }
 

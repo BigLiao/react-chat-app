@@ -31,7 +31,6 @@ export const female = ['assistant.png',
 'worker-1.png']
 
 export const male = ['assistant.png',
-'businessman.png',
 'captain.png',
 'chef.png',
 'concierge.png',

@@ -1,8 +1,15 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {female, male} from '@/assets/images/index.js';
 import './avatarSelector.css';
 
 class AvatarItem extends React.Component {
+  static propTypes = {
+    active: propTypes.bool,
+    name: propTypes.string,
+    url: propTypes.string,
+    clickAvatar: propTypes.func
+  }
   render () {
     return (
       <li className={'avatar-item  ' + (this.props.active ? 'active' : '')} key={this.props.name} onClick={() => this.props.clickAvatar(this.props.name)}>
@@ -13,20 +20,13 @@ class AvatarItem extends React.Component {
 }
 
 class AvatarSelector extends React.Component {
-  constructor (props) {
-    super(props);
-    this.clickAvatar = this.clickAvatar.bind(this);
-    this.state = {
-      avatar: ''
-    }
+  static propTypes = {
+    avatar: propTypes.string,
+    onChange: propTypes.func
   }
-  clickAvatar (name) {
-    console.log(name);
-    console.log(this);
-    this.setState({
-      avatar: name
-    })
-  }
+  // constructor (props) {
+  //   super(props);
+  // }
   render () {
     const maleAvatarList = male.map(filename => {
       return {
@@ -50,8 +50,8 @@ class AvatarSelector extends React.Component {
               name={item.name}
               url={item.url}
               key={item.name}
-              active={this.state.avatar === item.name}
-              clickAvatar={this.clickAvatar}
+              active={this.props.avatar === item.name}
+              clickAvatar={this.props.onChange}
               >
             </AvatarItem>)
           )}

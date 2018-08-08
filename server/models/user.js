@@ -7,7 +7,6 @@ const userModal = {
   gender: { type: String, required: true },
   avatar: { type: String },
   introduction: { type: String },
-  id: {type: Number, index: true},
   birthday: {type: String}
 };
 
