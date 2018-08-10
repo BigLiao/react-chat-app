@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {female, male} from '@/assets/images/index.js';
-import './avatarSelector.css';
+import style from './avatarSelector.css';
 
 class AvatarItem extends React.Component {
   static propTypes = {
@@ -12,8 +12,8 @@ class AvatarItem extends React.Component {
   }
   render () {
     return (
-      <li className={'avatar-item  ' + (this.props.active ? 'active' : '')} key={this.props.name} onClick={() => this.props.clickAvatar(this.props.name)}>
-        <img src={this.props.url} className="avatar-img" alt={this.props.name}></img>
+      <li className={style['avatar-item'] + (this.props.active ? style.active : '')} key={this.props.name} onClick={() => this.props.clickAvatar(this.props.name)}>
+        <img src={this.props.url} className={style['avatar-img']} alt={this.props.name}></img>
       </li>
     )
   }
@@ -42,9 +42,9 @@ class AvatarSelector extends React.Component {
     });
     const avatarList = this.props.gender === 'male' ? maleAvatarList : femaleAvatarList;
     return (
-      <div className="c-avatarSelector">
+      <div className={style['c-avatarSelector']}>
         <p className="title">请选择头像</p>
-        <ul className="avatar-list">
+        <ul className={style['avatar-list']}>
           {avatarList.map(item => 
             (<AvatarItem
               name={item.name}
