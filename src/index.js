@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import '@/common/style/index.less';
 import Login from './container/login/login';
 import Register from './container/register/register';
 import AuthRouter from './components/authRouter';
