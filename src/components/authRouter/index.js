@@ -16,7 +16,6 @@ const publicPaths = [
 )
 class AuthRouter extends React.Component {
   componentDidMount () {
-    // console.log(this.props);
     if (publicPaths.indexOf(this.props.location.pathname) > -1) {
       return null;
     }
