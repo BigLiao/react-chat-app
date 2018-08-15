@@ -8,14 +8,16 @@ config.database = {
   database: 'react-chat-app',
   user: 'liao',
   password: '123456',
-  host: '120.79.130.71',
+  // host: '120.79.130.71',
+  host: '120.78.163.217',
   port: 27017
 }
 
 config.redis = {
   client: 'session',
-  host: '120.79.130.71',
-  port: '6379',
+  // host: '120.79.130.71',
+  host: '120.78.163.217',
+  port: 6379,
   password: 'liao_redis'
 }
 

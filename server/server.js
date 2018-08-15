@@ -14,7 +14,7 @@ mongoose.connect(mongoUri, {
     authdb: 'admin'
   },
   useNewUrlParser: true
-}).catch(err => console.log('数据库连接失败'));
+}).catch(err => console.log(err));
 
 const redisOption = {
   host: config.redis.host,
